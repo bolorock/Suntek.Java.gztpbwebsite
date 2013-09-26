@@ -1,0 +1,180 @@
+body {
+	border-left: 1px solid #D9E0EA;
+	border-right: 1px solid #D9E0EA;
+	margin: 0px;
+	padding: 15px 8px;
+	font-size: 12px;
+    font-family: "宋体";
+}
+.title{
+	font-size:18px;
+	font-weight:600;
+	margin-bottom:5px;
+}
+.content{
+	margin-bottom:5px;
+	font-size:14px;
+	word-spacing:3px;
+	line-height:22px;
+}
+.greet{
+	font-size:13px;
+}
+
+td {
+	padding: 5px 0px;
+	vertical-align: middle;
+}
+
+.text {
+	background-color: #EFF3FA;
+	border-right: 1px solid #B1B9DC;
+	text-align: right;
+}
+
+#jdc_table,#sub_table{
+	font-size: 12px;
+	color: #4A4A4A;
+	margin-top: 5px;
+}
+
+.text font {
+	color: red;
+	font-size: 12px;
+}
+
+.cardnum{
+	border-bottom:1px solid #D0D0BF;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+}
+
+h4
+{
+	font-size: 13px;
+}
+h5
+{
+	font-size: 11px;
+}
+
+#waiting
+{
+	position:fixed;
+	_position:absolute;
+	top:50%;
+	left:50%;
+	width:124px;
+	height:124px;
+	overflow:hidden;
+	background:url(../images/waiting.gif) no-repeat;
+	z-index:7000; 
+	margin:-62px 0 0 -62px;
+} 
+
+
+/**add by [hgq]**/
+input
+{
+	margin:0px;
+	padding:0px;
+  	font-family: "宋体";
+	font-size:100%;
+}
+.editor
+{
+	padding-top:0px;
+	padding-bottom:20px;
+	padding-left:20px;
+	padding-right:0px;
+}
+
+.editor-label
+{
+	text-align:right;
+	line-height:26px;
+	width:130px;
+	display:inline;
+	float:left;
+	height:28px;
+	/*margin-left:-100px;*/
+}
+
+.editor-field
+{
+	border:#ccc 1px solid;
+	padding:0px 2px 0px 2px;
+	line-height:26px;
+	width:240px;
+	height:26px;
+	color:#666;
+	vertical-align:middle;
+}
+.editor_button
+{
+	height:26px;
+	vertical-align:middle;
+}
+.field-impt
+{
+	color:red;
+	top:2px;
+	position:relative;
+}
+
+.form_ok
+{
+	background:url(../images/form_ok.gif) no-repeat 0px 0px;
+	padding:0 10px;
+	line-height:33px;
+	/*处理IE6、7换行问题*/
+	*position:absolute;
+	*margin-top:5px;
+}
+.form_success
+{
+	background-color:#eff3fa;
+	margin:10px 0px;
+	padding: 20px 20px 20px 82px;
+	border:1px solid #2873a8;
+}
+
+.form_Prompt
+{
+	background-color:#eff3fa;
+	border:1px solid #2873a8;
+	margin:10px 0;
+	padding: 20px 20px 20px 82px;
+}
+
+.form_span
+{
+	color: #F60;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/**added by lam start */
+
+/**added by lam end   */
+
+/**表单验证**********/
+ /* input.rightformcss, select.rightformcss, textarea.rightformcss
+    {
+        border: 1px solid green;
+        padding: 1px;
+    }*/
+    .failmsg
+    {
+        color: #a40000;
+    }
+    .msgvaluecss
+    {
+        font-style: italic;
+    }
+    input.failformcss, select.failformcss, textarea.failformcss
+    {
+        border: 1px solid #a40000;
+        padding: 1px;
+    }

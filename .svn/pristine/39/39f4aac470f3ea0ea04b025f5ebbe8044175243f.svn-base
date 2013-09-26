@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="GB2312"?>
+<config>
+	<!--  
+		<param key="10000Url" type="string" description="10000号客服Portal" name="10000号客服Portal">http://132.121.130.58:9001/SmtCCS_manage/authorize</param>
+	-->
+</config>

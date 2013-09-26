@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="gztpbwebsite"
+  id="myeclipse.1343271100208"
+  context-root="/gztpbwebsite"
+  j2ee-spec="5.0"
+  archive="gztpbwebsite.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

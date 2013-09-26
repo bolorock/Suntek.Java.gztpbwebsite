@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="gb2312"?>
+<menus>
+	<!-- 
+	<menu name="菜单名称(通常是中文名称)" id="菜单的ID" target="打开目标方式" type="菜单类型"
+		url="菜单对应的URL" appname="菜单所属应用">
+		菜单中可以嵌套子菜单
+	</menu>	
+	//默认是独立应用
+	 -->
+	 <!-- 
+	 <menu name="销售管理" id="bhms_bhmsmarket_menu" target="_blank" type="menu" url="" appname="bhms" icon="/bhmsmarket/images/610salesmgr.png">
+	 	<menu name="任务管理" id="bhms_bhmsmarket_zxrwmgr_menu" target="_blank" type="menu" url="/bhmsmarket/salesproject/projectMain.jsp" appname="bhms" icon="/bhmsmarket/images/611taskmgr.png" />
+	 	<menu name="我的任务" id="bhms_bhmsmarket_myTask_menu" target="_blank" type="menu" url="/bhmsmarket/salesproject/myTask.jsp" appname="bhms" icon="/bhmsmarket/images/612mytask.png" />
+	 	<menu name="商机录入" id="bhms_bhmsmarket_schance_menu" target="_blank" type="menu" url="/bhmsmarket/saleschance/chanceMain.jsp" appname="bhms" icon="/bhmsmarket/images/613chance.png" />
+	 </menu>
+	  -->
+</menus>

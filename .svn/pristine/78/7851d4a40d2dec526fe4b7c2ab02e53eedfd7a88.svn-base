@@ -1,0 +1,76 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+           http://www.springframework.org/schema/context   
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byName">
+	<!-- 如果有多个 DispatcherServlet 请把关于数据库和server部分的bean在web.xml中使用spring 的 listener加载-->
+	<!-- 自动扫描controller bean，把作了注解的类转换为bean -->
+	<context:component-scan base-package="com.suntek" />
+	<!-- 事务  -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 数据源 10.41.168.118 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver">
+		</property>
+		<property name="url"
+			value="jdbc:oracle:thin:@172.16.70.133:1521:itms">
+		</property>
+		<property name="username" value="openeap"></property>
+		<property name="password" value="suntek"></property>
+	</bean>
+	
+	    <bean id ="JdbcTemplate"  
+	             class ="org.springframework.jdbc.core.JdbcTemplate">    
+         <property name ="dataSource">    
+             <ref bean ="dataSource"  />    
+         </property>    
+     </bean>  
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/view/" p:suffix=".jsp">
+		<property name="order" value="0"/>
+	</bean>
+	<!-- 自定义exception处理 -->
+	<bean id="exceptionResolver" class="com.suntek.gztpb.core.CommonExceptionHandler"/>
+		
+	<bean id="nativeJdbcExtractor" 
+class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor"
+lazy-init="true"/>
+
+<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler"
+	lazy-init="true">
+	<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor" />
+</bean>
+
+<bean id="VehicleLicenseDao" class="com.suntek.gztpb.dao.VehicleLicenseDao">
+   <property name="lobHandler" ref="oracleLobHandler"/> 
+</bean>
+
+<bean id="DriverLicenseDao" class="com.suntek.gztpb.dao.DriverLicenseDao">
+   <property name="lobHandler" ref="oracleLobHandler"/> 
+</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 以字节为单位的最大上传文件的大小 -->
+		<property name="maxUploadSize" value="104857600"/>
+        <property name="maxInMemorySize" value="4096"/>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+
+</beans>  

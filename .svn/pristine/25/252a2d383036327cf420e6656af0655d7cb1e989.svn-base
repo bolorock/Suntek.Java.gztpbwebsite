@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<project name="workflow" default="buildWAR" basedir=".">
+	<!--生成WAR-->
+		<target name="buildWAR"  >
+			<jar jarfile="gztpbwebsite.war" compress="yes">
+				<fileset dir="WebRoot" >
+				</fileset>
+			</jar>
+		</target>
+	
+
+</project>

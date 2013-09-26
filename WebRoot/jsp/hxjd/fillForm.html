@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>填写申请表</title>
+<script type="text/javascript" src="/gztpbwebsite/js/datetimepicker/datetimepicker/WdatePicker.js"></script>
+<style type="text/css">
+.btn_2k3 {
+ BORDER-RIGHT: #002D96 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #002D96 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FFFFFF, EndColorStr=#9DBCEA); BORDER-LEFT: #002D96 1px solid; CURSOR: hand; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: #002D96 1px solid
+ }
+ .firstField{
+ text-align:center;
+ width:60px;
+ }
+ .secondField{
+text-align:right;
+ width:70px;
+ background-color: #EFF3FA;
+ }
+  .secondValue{
+  width:226px;
+ }
+  .thirdField{
+  text-align:right;
+ width:105px;
+  background-color: #EFF3FA;
+ }
+  .thirdValue{
+  width:226px;
+ }
+ .tableText{
+ 
+ }
+ .requested{
+ color:red;
+ }
+ .commonValue{
+ 
+ width: 60;
+ size: 60;
+
+ }
+ 
+/*引进的统一的样式*/
+ 
+body {
+	border-left: 1px solid #D9E0EA;
+	border-right: 1px solid #D9E0EA;
+	margin: 0px;
+	padding:20px 7px 0px 7px;
+}
+
+td {
+	padding: 5px 0px;vertical-align: middle;
+}
+
+.text {
+	background-color: #EFF3FA;
+	border-right: 1px solid #B1B9DC;
+	text-align: right;
+}
+
+#jdc_table {
+	font-size: 12px;
+	color:#4A4A4A;
+	margin-top:5px;
+}
+
+.text font {
+	color: red;
+	font-size: 12px;
+}
+ 
+/*引进的统一的样式*/
+ 
+</style>
+<script type="text/javascript">
+
+function addNewRow(){
+	var t = document.getElementById("product");
+	var row = t.insertRow(-1);
+	var cell1 = row.insertCell(-1);
+	var cell2 = row.insertCell(-1);
+	var cell3 = row.insertCell(-1);
+	cell1.innerHTML = "<select name=\"productName\" style=\"width: 97%;\">"+
+							"<option value=''>--请选择品名--</option>"+
+						    "<option value='1'>氰化钠</option>"+
+						    "<option value='2'>双氧水</option>"+
+					  "</select>";
+	cell2.innerHTML = "<input type=\"text\" id=\"\" name=\"amount\" width=\"42;\" size=\"42;\">";
+	cell3.innerHTML = "<input type=\"button\" id=\"\" name=\"\" value=\"删除\" onclick=\"deleteRow(this.parentElement.parentElement.rowIndex)\" />";
+}
+
+function deleteRow(rowIndex){
+	//if(confirm("是否删除当前品种，删除后不可恢复")){
+		document.getElementById("product").deleteRow(rowIndex);
+	//}
+}
+
+/*日期选择*/
+function datePicker(obj) {
+new WdatePicker({
+dateFmt: convert_format('yyyymm'),
+isShowToday: true,
+readOnly: true,
+onpicked: function(dp) {
+monthChange(obj);
+}
+});
+}
+
+//验证表格输入是否正确
+function doValidate(){	
+	var buyDept = obj("buyDept");
+	if(buyDept.value.trim() == ""){
+		alert("购买单位名称为必填项！");
+		return ;
+	}
+	var transportDept = obj("transportDept");
+	if(transportDept.value.trim() == ""){
+		alert("承运单位名称为必填项！");
+		return ;
+	}
+	var truckNumber = obj("truckNumber");
+	if(truckNumber.value.trim() == ""){
+		alert("牌照号码为必选项！");
+		return ;
+	}
+	var driver = obj("driver");
+	if(driver.value.trim() == ""){
+		alert("驾驶人员姓名为必填项！");
+		return ;
+	}
+	var driverID = obj("driverID");
+	if(driverID.value.trim() == ""){
+		alert("驾驶人员身份证件号码为必填项！");
+		return ;
+	}
+	var escortor = obj("escortor");
+	if(escortor.value.trim() == ""){
+		alert("押运人员姓名为必填项！");
+		return ;
+	}
+	var escortorID = obj("escortorID");
+	if(escortorID.value.trim() == ""){
+		alert("押运人员身份证件号码为必填项！");
+		return ;
+	}
+	var applier = obj("applier");
+	if(applier.value.trim() == ""){
+		alert("申请人员姓名为必填项！");
+		return ;
+	}
+	var applierID = obj("applierID");
+	if(applierID.value.trim() == ""){
+		alert("申请人员身份证件号码为必填项！");
+		return ;
+	}
+	var applierPhone = obj("applierPhone");
+	if(applierPhone.value.trim() == ""){
+		alert("申请人员手机号码为必填项！");
+		return ;
+	}
+	var credentials = obj("credentials");
+	if(credentials.value.trim() == ""){
+		alert("购买许可或进出口登记证件号码 为必填项！");
+		return ;
+	}
+	
+	/*
+	* 品种验证
+	*/
+	var aoumt = 0 ;
+	var productName1 = obj("productName1");
+	var productAoumt1 = obj("productAoumt1");
+	var productName2 = obj("productName2");
+	var productAoumt2 = obj("productAoumt2");
+	if(productName1.value.trim() != "" && productAoumt1.value.trim() == "" ){
+		alert("运输品种数量为必填项");
+		return ;
+	}else{
+		if(productName1.value.trim() == "" && productAoumt1.value.trim() != "" ){
+			alert("运输品种品名为必填项");
+			return ;
+		}
+	}
+	if(productName2.value.trim() != "" && productAoumt2.value.trim() == "" ){
+		alert("运输品种数量为必填项");
+		return ;
+	}else{
+		if(productName2.value.trim() == "" && productAoumt2.value.trim() != "" ){
+			alert("运输品种品名为必填项");
+			return ;
+		}
+	}
+	if(productName1.value.trim() == "" && productAoumt1.value.trim() == ""
+			&& productName2.value.trim() == "" && productAoumt2.value.trim() == ""){
+		alert("运输品种必填项");
+		return ;
+	}
+	
+	var way = obj("way");
+	if(way.value.trim() == ""){
+		alert("运输路线为必选项！");
+		return ;
+	}
+	var startTime = obj("startTime");
+	if(startTime.value.trim() == ""){
+		alert("开始时间为必选项！");
+		return ;
+	}
+	var endTime = obj("endTime");
+	if(endTime.value.trim() == ""){
+		alert("结束时间为必选项！");
+		return ;
+	}
+	
+	/*
+	var names = document.getElementsByName("name");
+	for( var i = 0 ; i < names.length ; i++){
+		if(names[i].value.trim() == ""){
+			alert("名称或姓名不能为空！");
+			return ;
+		}
+	}
+	*/
+	/*
+	var representor = document.getElementById("representor");
+    if(representor.value.trim() == ""){
+    	alert("法定代表人不能为空！");
+		return ;
+    }
+    */
+    /*
+    var telephones = document.getElementsByName("telephone");
+	for( var i = 0 ; i < telephones.length ; i++){
+		if(!isTelephoneCorrect(telephones[i].value.trim())){
+			alert("联系电话格式不正确！");
+			return ;
+		}
+	}
+	*/
+	
+	/*
+	var IDs = document.getElementsByName("ID");
+	for( var i = 0 ; i < IDs.length ; i++){
+		if(!isIDCorrect(IDs[i].value)){
+			alert("身份证号码不正确！");
+			return ;
+		}
+	}
+	var qualitys = document.getElementsByName("quality");
+	for( var i = 0 ; i < qualitys.length ; i++){
+		if(!isQualityCorrect(qualitys[i].value.trim())){
+			alert("质量格式不正确！");
+			return ;
+		}
+	}
+	var amounts = document.getElementsByName("amount");
+	for( var i = 0 ; i < amounts.length ; i++){
+		if(!isAmountCorrect(amounts[i].value.trim())){
+			alert("数量格式不正确！");
+			return ;
+		}
+	}
+	var way = document.getElementById("way");
+	if(way.value.trim() == ""){
+		alert("请选择运输路线！");
+		return ;
+	}
+	
+	var startTime = document.getElementById("startTime");
+	var endTime = document.getElementById("endTime");
+	if(startTime.value.trim() == ""){
+		alert("开始时间不能为空！");
+		return ;
+	}
+	if(endTime.value.trim() == ""){
+		alert("结束时间不能为空！");
+		return ;
+	}
+	*/	
+	alert("申请成功，本次申请流水号为xxxxxxxx.");
+	location.href="fillForm.html";
+	return true;
+}
+
+//去掉字符串两边空格
+String.prototype.trim = function (){
+    return this.replace(/(^\s*)|(\s*$)/g , '');
+}
+
+//判断身份证号码格式是否正确
+function isIDCorrect(value){
+	//身份证正则表达式(15位) 
+	var isIDCard15=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/; 
+	//身份证正则表达式(18位) 
+	var isIDCard18=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/; 
+    if(isIDCard15.test(value) || isIDCard18.test(value) ){
+    	return true;
+    }else{
+    	return false;
+    }
+}
+
+//电话号码格式是否正确
+function isTelephoneCorrect(value){
+	if(/((d{3,4})|d{3,4}-)?d{7,8}(-d{3})*/.test(value))
+		return true;
+	else
+		return false;
+}
+
+//手机号码格式是否正确
+function isPhoneCorrect(value){
+	
+}
+
+//判断非负整数
+function isAmountCorrect(value){
+	if(/^\d+$/.test(value) )
+		return true;
+	else
+		return false;
+}
+
+//判断非负整数或非负小数
+function isQualityCorrect(value){
+	if( /^\d+$/.test(value) || /^\d+(\.\d+)?$/.test(value))
+		return true;
+	else
+		return false;
+}
+
+//购买单位是否合法
+function isBuyDeptLegal(obj){
+	var buyDeptLegal = "购买单位";
+	if(obj.value.trim() == buyDeptLegal){
+		document.getElementById("buyDeptSpan").innerHTML = "";
+	}else{
+		document.getElementById("buyDeptSpan").innerHTML = "<font color=\"#FF0000\" size=\"2px;\">购买单位审核不通过!</font>";
+	    /*
+		obj.blur();
+		obj.focus();
+		*/
+		
+	}
+}
+
+//承运单位是否合法
+function isTransportDeptLegal(obj){
+	var transportLegal = "承运单位";
+	if(obj.value.trim() == transportLegal){
+		document.getElementById("transportDeptSpan").innerHTML = "";
+	}else{
+		document.getElementById("transportDeptSpan").innerHTML = "<font color=\"#FF0000\" size=\"2px;\">承运单位审核不通过!</font>";
+		/*
+		obj.blur();
+		obj.focus();
+		*/
+	}
+}
+
+//承运车辆号码是否合法
+function isTruckNumberLegal(obj){
+	var truckNumberLegal = "粤A000000";
+	if(obj.value.trim() == truckNumberLegal){
+		document.getElementById("truckNumberSpan").innerHTML = "";
+	}else{
+		document.getElementById("truckNumberSpan").innerHTML = "<font color=\"#FF0000\" size=\"2px;\">牌照号码审核不通过!</font>";
+		/*
+		obj.blur();
+		obj.focus();
+		*/
+	}
+}
+
+//驾驶人员是否合法
+function isDriverLegal(obj){
+	var driverLegal = "驾驶人员";
+	if(obj.value.trim() == driverLegal){
+		document.getElementById("driverSpan").innerHTML = "";
+	}else{
+		document.getElementById("driverSpan").innerHTML = "<font color=\"#FF0000\" size=\"2px;\">驾驶人员审核不通过!</font>";
+		/*
+		obj.blur();
+		obj.focus();
+		*/
+	}
+}
+
+//押运人员是否合法
+function isEscortorLegal(obj){
+	var escortorLegal = "押运人员";
+	if(obj.value.trim() == escortorLegal){
+		document.getElementById("escortorSpan").innerHTML = "";
+	}else{
+		document.getElementById("escortorSpan").innerHTML = "<font color=\"#FF0000\" size=\"2px;\">押运人员审核不通过!</font>";
+		/*
+		obj.blur();
+		obj.focus();
+		*/
+	}
+}
+
+function obj(id){
+	return document.getElementById(id);
+}
+
+</script>
+</head>
+<body>
+<div >
+<div style="text-align:center;margin-bottom:5px;"><font size="4" color="#085DB2">剧毒化学品公路运输通行证申请表</font></div>
+<form id="form1" action="">
+ <fieldset>
+ <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="0"
+            style="border-collapse: collapse;font-size:13px;color: #4A4A4A">
+  <tr>
+     <td class="firstField">购买单位</td>
+     <td >
+	     <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+	           style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">名    称<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                    
+	                     <input type="text" id="buyDept" name="buyDept" width="30;" size="30;" onblur="isBuyDeptLegal(this);"/><br/>
+                         <span id="buyDeptSpan"></span>                         
+                 </td>
+                 <td class="thirdField">法定代表人&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                      <input type="text" id="representor" name="representor"  width="30;" size="30;" />
+				</td>
+             </tr>
+             <tr>
+                 <td class="secondField">地    址&nbsp;&nbsp;</td>
+                 <td class="secondVlaue">
+				      <input type="text" id="" name="" width="30;" size="30;"  />
+				 </td>
+                 <td class="thirdField">联系电话&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+				 	 <input type="text" id="" name="telephone" width="30;" size="30;"  />	
+				 </td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+     <td class="firstField">承运单位</td>
+     <td >
+	     <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">名    称<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="transportDept" name="transportDept"  width="30;" size="30;" onblur="isTransportDeptLegal(this);"/><br/>
+                 	  <span id="transportDeptSpan"></span>  
+                 </td>
+                 <td class="thirdField">经营许可证号&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+					 <input type="text" id="" name="" width="30;" size="30;" />
+				 </td>
+             </tr>
+             <tr>
+                 <td class="secondField">地    址&nbsp;&nbsp;</td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="" name="" width="30;" size="30;"  />
+                 </td>
+                 <td class="thirdField">联系电话&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="" name="telephone" width="30;" size="30;" />
+                 </td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+     <td class="firstField">承运车辆</td>
+     <td >
+	     <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">牌照号码<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                     <select id="truckNumber" name="truckNumber" style="width: 83%;"  onblur="isTruckNumberLegal(this);">
+			            <option value=''>--请选择牌照号码--</option>
+			            <option value='粤A000000'>粤A000000</option>
+			            <option value='粤A000001'>粤A000001</option>
+			        </select>
+			        <!-- 
+                 	 <input type="text" id="truckNumber" name="truckNumber"  width="30;" size="30;"/><br/>
+			          -->
+                 	 <span id="truckNumberSpan"></span>  
+                 </td>
+                 <td class="thirdField">道路运输证号&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="" name=""  width="30;" size="30;" />
+                 </td>
+             </tr>
+             <tr>
+                 <td class="secondField">核载质量&nbsp;&nbsp;</td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="" name="quality"  width="30;" size="30;" />
+                 </td>
+                 <td class="thirdField">实际载质量&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="" name="quality" width="30;" size="30;"  />
+                 </td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+     <td class="firstField">驾驶人员</td>
+     <td >
+	     <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">姓    名<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="driver" name="driver" width="30;" size="30;" onblur="isDriverLegal(this);"  /><br/>
+                 	 <span id="driverSpan"></span>
+                 </td>
+                 <td class="thirdField">上岗资格证号&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="" name=""  width="30;" size="30;" />
+                 </td>
+             </tr>
+             <tr>
+                 <td class="secondField">手机号码&nbsp;&nbsp;</td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="" name="phone"  width="30;" size="30;" />
+                 </td>
+                 <td class="thirdField">身份证件号码<span class="requested">*</span></td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="driverID" name="driverID"  width="30;" size="30;" />
+                 </td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+     <td class="firstField">押运人员</td>
+     <td >
+	     <table width="100%" border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">姓      名<span class="requested">*</span> </td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="escortor" name="escortor"  width="30;" size="30;" onblur="isEscortorLegal(this);" /><br/>
+                 	 <span id="escortorSpan"></span>
+                 </td>
+                 <td class="thirdField">上岗资格证号&nbsp;&nbsp;</td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="" name="" width="30;" size="30;"  />
+                 </td>
+             </tr>
+             <tr>
+                 <td class="secondField">手机号码&nbsp;&nbsp;</td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="" name="phone" width="30;" size="30;"  />
+                 </td>
+                 <td class="thirdField">身份证件号码<span class="requested">*</span></td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="escortorID" name="escortorID" width="30;" size="30;"  />
+                 </td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+     <td class="firstField">申请人员</td>
+     <td >
+	     <table width="100%"  border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+             <tr>
+                 <td class="secondField">姓    名<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="applier" name="applier" width="30;" size="30;"  />
+                 </td>
+                 <td class="thirdField">身份证件号码<span class="requested">*</span></td>
+                 <td class="thirdValue">
+                 	 <input type="text" id="applierID" name="applierID"  width="30;" size="30;" />
+                 </td>
+             </tr>
+             <tr>
+                 <td class="secondField">手机号码<span class="requested">*</span></td>
+                 <td class="secondVlaue">
+                 	 <input type="text" id="applierPhone" name="applierPhone" width="30;" size="30;"/>
+                 </td>
+                 <td class="thirdField">&nbsp;</td>
+                 <td class="thirdValue">&nbsp;</td>
+             </tr>
+         </table>
+     </td>
+     
+  </tr>
+  <tr>
+    <td colspan="5">
+        <table id="number" width="100%"  border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+            <tr>
+	            <td align="right" width="30%;">购买许可或进出口登记证件号码 <span class="requested">*</span></td>
+	    		<td><input type="text" id="credentials" name="credentials"  width="75" size="75" /></td>
+    		</tr>
+        </table>
+    </td>
+    
+  </tr>
+  <tr>
+    <td class="firstField">
+                   运输品种<span class="requested">*</span><br/>
+       <input type="button" id="addProductBtn" name="addProductBtn" value="添加品种" onclick="addNewRow();"/>            
+    </td>
+    <td>
+        <table id="product" width="100%"  border="0"  cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+            <tr height="3px">
+            	<td width="280px;" align="center" style="background-color: #EFF3FA;">品名<span class="requested">*</span></td>
+            	<td width="280px;" align="center" style="background-color: #EFF3FA;">数量（千克）<span class="requested">*</span>
+            	</td>
+            	<td align="center" width="14px;" style="background-color: #EFF3FA;">操作</td>
+           	</tr>
+           	<tr>
+            	<td >
+            		 <select id="productName1" name="productName1" style="width: 97%;">
+			            <option value='' >--请选择品名--</option>
+			            <option value='1'>氰化钠</option>
+			            <option value='2'>双氧水</option>
+			        </select>
+            	</td>
+            	<td>
+            		<input type="text" id="productAoumt1" name="productAoumt1" width="42;" size="42;"/>        		 
+            	</td>
+            	<td width="14px;">
+            		<input type="button" id="" name="" value="删除" onclick="deleteRow(this.parentElement.parentElement.rowIndex)" />
+            	</td>
+           	</tr>
+           	<tr>
+            	<td >
+            		 <select id="productName2" name="productName2" style="width: 97%;">
+			            <option value=''>--请选择品名--</option>
+			            <option value='1'>氰化钠</option>
+			            <option value='2'>双氧水</option>
+			        </select>
+            	</td>
+            	<td>
+            		 <input type="text" id="productAoumt2" name="productAoumt2" width="42;" size="42;"/>
+            	</td>
+            	<td width="14px;">
+            		<input type="button" id="" name="" value="删除" onclick="deleteRow(this.parentElement.parentElement.rowIndex)" />
+            	</td>
+           	</tr>           	
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="firstField">运输路线<span class="requested">*</span></td>
+    <td>
+    <table width="100%"  border="0" cellspacing="0" bordercolor="#d2e2f0" cellpadding="3" frame="void"
+            style="border-collapse: collapse;">
+            <tr>
+    <td width="180px;" align="center">
+        <select id="way" style="width: 98%;">
+            <option value=''>--请选择--</option>
+            <option value='1'>广州->深圳</option>
+            <option value='2'>广州->佛山</option>
+        </select>
+    </td> 
+    <td class="firstField" style="background-color: #EFF3FA;text-align: right;">开始时间<span class="requested">*</span></td>
+    <td>
+        <input type="text" class="Wdate" name="startTime" id="startTime" size="20"
+onfocus="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true});"
+readOnly="readonly"/>
+    </td> 
+    <td class="firstField" style="background-color: #EFF3FA;text-align: right;">结束时间<span class="requested">*</span></td>
+    <td>
+        <input type="text" class="Wdate" name="endTime" id="endTime" size="20"
+onfocus="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"
+readOnly="readonly"/>
+    </td>  
+    </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+</fieldset>
+</form>
+<div align="center" style="margin-top: 20px;font-size:13px;color:#666666">
+所有带有星号（<span class="requested">*</span>）标记的的字段是必填项的。<br/><br/>
+<span>
+查看业务须知和填表说明，
+</span>
+<input type="button" id="doPrevious" value="上一步" onclick="javascript:location.href='fillFormNote.html'" />
+&nbsp;&nbsp;
+<input type="submit" id="doSubmit" value="提交" onclick="doValidate();" />
+&nbsp;&nbsp;
+<input type="button" id="doReset" value="重置" onclick="form1.reset();" />
+</div>
+</div>
+</body>
+</html>
